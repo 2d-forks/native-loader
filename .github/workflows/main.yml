@@ -122,7 +122,7 @@ jobs:
       - run: mkdir -p src/main/resources/natives
       - uses: actions/download-artifact@v2
         with:
-          name: linux-freebsd-natives
+          name: linux-natives
           path: src/main/resources/natives/
       - uses: actions/download-artifact@v2
         with:
