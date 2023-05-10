@@ -34,7 +34,7 @@ jobs:
         with:
           name: mac-natives
           path: src/main/resources/natives/*
-  linux-freebsd-natives:
+  linux-natives:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -45,14 +45,13 @@ jobs:
         id: cache-natives
         with:
           path: |
-            src/main/resources/natives/freebsd-x86-64
             src/main/resources/natives/linux-x86
             src/main/resources/natives/linux-x86-64
             src/main/resources/natives/linux-musl-x86-64
             src/main/resources/natives/linux-arm
             src/main/resources/natives/linux-aarch64
             src/main/resources/natives/linux-musl-aarch64
-          key: linux-freebsd-${{ hashFiles('feature-detector/**') }}
+          key: linux-${{ hashFiles('feature-detector/**') }}
       - name: Set up JDK
         uses: actions/setup-java@v1
         if: steps.cache-natives.outputs.cache-hit != 'true'
@@ -84,20 +83,9 @@ jobs:
           chmod +x gradlew
           export PATH="$PATH:$(pwd)/aarch64-linux-musl-cross/bin"
           ./gradlew buildLinuxGlibcArm buildLinuxGlibcAarch64 buildLinuxMuslAarch64
-      - name: Install freebsd compiler
-        if: steps.cache-natives.outputs.cache-hit != 'true'
-        run: |
-            mkdir freebsd_sysroot
-            curl -s http://ftp-archive.freebsd.org/pub/FreeBSD-Archive/old-releases/amd64/11.4-RELEASE/base.txz \
-                | tar -xJf - -C freebsd_sysroot ./lib ./usr/lib ./usr/libdata ./usr/include ./usr/share/keys ./etc
-      - name: Build freebsd natives
-        if: steps.cache-natives.outputs.cache-hit != 'true'
-        run: |
-          chmod +x gradlew
-          ./gradlew buildFreebsd64
       - uses: actions/upload-artifact@v2
         with:
-          name: linux-freebsd-natives
+          name: linux-natives
           path: src/main/resources/natives/*
   windows-natives:
     runs-on: windows-2019
@@ -127,7 +115,7 @@ jobs:
           name: windows-natives
           path: src/main/resources/natives/*
   build:
-    needs: [windows-natives, linux-freebsd-natives, mac-natives]
+    needs: [windows-natives, linux-natives, mac-natives]
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2

@@ -73,7 +73,6 @@ For a library named `mylib`:
 | OS             | Architecture | File                                    |
 |----------------|--------------|-----------------------------------------|
 | Darwin (OS X*) | x86-64       | /natives/darwin/libmylib.dylib          |
-| Freebsd        | x86-64       | /natives/freebsd-x86-64/libmylib.so     |
 | Linux (glibc)  | aarch64      | /natives/linux-aarch64/libmylib.so      |
 | Linux (glibc)  | arm          | /natives/linux-arm/libmylib.so          |
 | Linux (glibc)  | x86          | /natives/linux-x86/libmylib.so          |
