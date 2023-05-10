@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public enum DefaultArchitectureTypes implements ArchitectureType {
     ARM("arm", Arrays.asList("arm", "armeabi", "armv7b", "armv7l"), CPUType.ARM),
-    //ARM_HF("armhf", Arrays.asList("armeabihf", "armeabi-v7a")),
-    //ARMv8_32("aarch32", Arrays.asList("armv8b", "armv8l")),
+    ARM_HF("armhf", Arrays.asList("armeabihf", "armeabi-v7a"), CPUType.ARM),
+    ARMv8_32("aarch32", Arrays.asList("armv8b", "armv8l"), CPUType.ARM),
     ARMv8_64("aarch64", Arrays.asList("arm64", "aarch64", "aarch64_be", "arm64-v8a"), CPUType.AARCH64),
     
     //MIPS_32("mips", Collections.singletonList("mips")),
