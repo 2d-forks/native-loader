@@ -6,7 +6,7 @@ plugins {
 def versionObj = new Version(major: 0, minor: 0, revision: 2)
 
 archivesBaseName = 'native-loader'
-group 'com.github.topisenpai'
+group 'dev.arbjerg'
 version "${versionObj}"
 
 sourceCompatibility = 11
@@ -47,8 +47,6 @@ publishing {
     }
     publications {
         maven(MavenPublication) {
-
-
             from components.java
         }
     }
