@@ -150,4 +150,4 @@ jobs:
           fi
         env:
           MAVENUSERNAME: ${{ secrets.MAVENUSERNAME }}
-          MAVENPASSWORD: ${{ secrets.MAVENPASSWORD }}
+          MAVENPASSWORD: ${{ env.MAVENPASSWORD }}
