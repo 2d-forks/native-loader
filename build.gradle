@@ -5,6 +5,9 @@ plugins {
 
 archivesBaseName = 'native-loader'
 group 'dev.arbjerg'
+def (versionStr, isSnapshot) = getGitVersion()
+version versionStr
+println "Version: " + versionStr
 
 sourceCompatibility = 11
 targetCompatibility = 11
@@ -28,19 +31,48 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc.destinationDir
 }
 
+def getGitVersion() {
+    def versionStr = new ByteArrayOutputStream()
+    def result = exec {
+        standardOutput versionStr
+        errorOutput versionStr
+        ignoreExitValue true
+        commandLine "git", "describe", "--exact-match", "--tags"
+    }
+    if (result.exitValue == 0) {
+        return [versionStr.toString().trim(), false]
+    }
+
+
+    versionStr = new ByteArrayOutputStream()
+    exec {
+        standardOutput versionStr
+        errorOutput versionStr
+        commandLine "git", "rev-parse", "--short", "HEAD"
+    }
+
+    return [versionStr.toString().trim(), true]
+}
+
+var isMavenDefined = findProperty("MAVEN_USERNAME") != null && findProperty("MAVEN_PASSWORD") != null
+
 publishing {
-    repositories {
-        maven() {
-            url = "https://maven.arbjerg.dev/releases"
-            credentials {
-                password = findProperty("mavenPassword")
-                username = findProperty("mavenUsername")
+    if (isMavenDefined) {
+        System.out.println("Publishing to Maven Repo")
+        repositories {
+            def snapshots = "https://maven.arbjerg.dev/snapshots"
+            def releases = "https://maven.arbjerg.dev/releases"
+
+            maven {
+                name = "Reposilite"
+                url = isSnapshot ? snapshots : releases
+                credentials {
+                    username = findProperty("MAVEN_USERNAME")
+                    password = findProperty("MAVEN_PASSWORD")
+                }
             }
         }
-    }
-    publications {
-        maven(MavenPublication) {
-            from components.java
-        }
+    } else {
+        System.out.println("Maven credentials not found, not publishing to Maven Repo")
     }
 }
