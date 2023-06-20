@@ -57,6 +57,11 @@ def getGitVersion() {
 var isMavenDefined = findProperty("MAVEN_USERNAME") != null && findProperty("MAVEN_PASSWORD") != null
 
 publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
     if (isMavenDefined) {
         System.out.println("Publishing to Maven Repo")
         repositories {
