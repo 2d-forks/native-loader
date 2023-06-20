@@ -149,5 +149,5 @@ jobs:
             ./gradlew publish -PmavenUsername=$MAVENUSERNAME -PmavenPassword=$MAVENPASSWORD -Pversion=$TAG
           fi
         env:
-          MAVENUSERNAME: ${{ secrets.MAVENUSERNAME }}
-          MAVENPASSWORD: ${{ env.MAVENPASSWORD }}
+          MAVENUSERNAME: ${{ env.MAVENUSERNAME }}
+          MAVENPASSWORD: ${{ secrets.MAVENPASSWORD }}
