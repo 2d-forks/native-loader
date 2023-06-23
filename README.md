@@ -9,26 +9,26 @@ loader.
 
 ```gradle
 repositories {
-  jcenter()
+  maven { url 'https://maven.arbjerg.dev/releases' }
 }
 
 dependencies {
-  compile 'com.github.natanbc:native-loader:VERSION'
+  compile 'dev.arbjerg:native-loader:VERSION'
 }
 ```
 
 ```xml
 <repositories>
     <repository>
-        <id>jcenter</id>
-        <name>jcenter</name>
-        <url>https://jcenter.bintray.com</url>
+        <id>arbjerg</id>
+        <name>arbjerg</name>
+        <url>https://maven.arbjerg.dev/releases</url>
     </repository>
 </repositories>
 
 <dependencies>
     <dependency>
-        <groupId>com.github.natanbc</groupId>
+        <groupId>dev.arbjerg</groupId>
         <artifactId>native-loader</artifactId>
         <version>VERSION</version>
     </dependency>
