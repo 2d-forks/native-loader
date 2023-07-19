@@ -4,7 +4,7 @@ plugins {
 }
 
 archivesBaseName = 'native-loader'
-group 'dev.arbjerg'
+group 'one.keia.lava'
 def (versionStr, isSnapshot) = getGitVersion()
 version versionStr
 println "Version: " + versionStr
@@ -65,8 +65,8 @@ publishing {
     if (isMavenDefined) {
         System.out.println("Publishing to Maven Repo")
         repositories {
-            def snapshots = "https://maven.arbjerg.dev/snapshots"
-            def releases = "https://maven.arbjerg.dev/releases"
+            def snapshots = "https://maven.dimensional.fun/snapshots"
+            def releases = "https://maven.dimensional.fun/releases"
 
             maven {
                 name = "Reposilite"
